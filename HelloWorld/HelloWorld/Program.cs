@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace HelloWorld
 {
@@ -6,7 +7,12 @@ namespace HelloWorld
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            foreach(ConsoleColor color in Enum.GetValues(typeof(ConsoleColor)))
+            {
+                Console.ForegroundColor = color;
+                Console.WriteLine("Hello World!");
+                Thread.Sleep(1000);
+            }       
         }
     }
 }
