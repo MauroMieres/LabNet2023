@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\CustomExceptions.cs" />
+    <Compile Include="ExtensionMethods\IntegerExtensions.cs" />
+    <Compile Include="Logica.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
