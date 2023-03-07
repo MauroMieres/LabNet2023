@@ -22,7 +22,7 @@ namespace labNetPractica2
             while (intentos1 >= 0)
             {
                 try
-                {               
+                {
                     Console.Write("Ingrese un dividendo: ");
                     string numeroIngresado = Console.ReadLine();
                     decimal numero = decimal.Parse(numeroIngresado);
@@ -31,17 +31,17 @@ namespace labNetPractica2
                 }
                 catch (FormatException)
                 {
-                    if(intentos1!=0)
-                    Console.WriteLine($"Ingrese un divisor valido! Intentos restantes: {intentos1}.");
+                    if (intentos1 != 0)
+                        Console.WriteLine($"Ingrese un divisor valido! Intentos restantes: {intentos1}.");
                     intentos1--;
                 }
-                if(intentos1 == -1)
+                if (intentos1 == -1)
                 {
-                    Console.WriteLine(  "Te quedaste sin intentos1, se continuara con el siguiente punto");
+                    Console.WriteLine("Te quedaste sin intentos1, se continuara con el siguiente punto");
                     break;
                 }
             }
-            Console.WriteLine("------------------------------------------------------------");      
+            Console.WriteLine("------------------------------------------------------------");
             int intentos2 = 2;
             Console.WriteLine("2) Realizar un método que permita ingresar 2 números (dividendo y divisor) y realice la división de los mismos ...");
             decimal dividendo = default;
@@ -73,10 +73,10 @@ namespace labNetPractica2
                 {
                     Console.WriteLine("Te quedaste sin intentos, se continuara con el siguiente punto");
                     break;
-                }   
+                }
             }
 
-            if(intentos2 != -1)
+            if (intentos2 != -1)
             {
                 int intentos3 = 2;
                 while (intentos3 >= 0)
@@ -86,8 +86,8 @@ namespace labNetPractica2
                         Console.Write("Ingrese un divisor: ");
                         string divisorIngresado = Console.ReadLine();
                         divisor = decimal.Parse(divisorIngresado);
-                        if(dividendo != default)
-                        Logica.DividirDosDecimales(dividendo, divisor, ImprimirConsola);
+                        if (dividendo != default)
+                            Logic.DividirDosDecimales(dividendo, divisor, ImprimirConsola);
                         break;
                     }
                     catch (FormatException)
@@ -102,11 +102,38 @@ namespace labNetPractica2
                         break;
                     }
                 }
-            }          
+            }
+
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("3) Realizar un método en una clase “Logic”, llamado desde la “presentación” (Consola, UnitTest, Etc.), que dispare una excepción ...");
+
+            try
+            {
+                Logic.ThrowException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Mensaje de la excepcion: " + ex.Message);
+                Console.WriteLine($"Tipo de excepcion: " + ex.GetType().Name.ToString());
+            }
+
+            Console.WriteLine("Presione una tecla para continuar...");
+            Console.ReadKey();
+            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("4) Volver a realizar el ejercicio anterior pero esta vez la lógica deberá simplemente devolver un tipo de excepción personalizada y ser capturada por la misma aplicación.");
+
+            try
+            {
+                Logic.ThrowCustomException();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Mensaje de la excepcion: " + ex.Message);
+                Console.WriteLine($"Tipo de excepcion: " + ex.GetType().Name.ToString());
+            }
+            Console.WriteLine("Presione una tecla para cerrar el programa.");
+
             Console.ReadKey();
         }
-
-        
-
     }
 }

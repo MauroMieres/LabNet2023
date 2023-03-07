@@ -9,10 +9,6 @@ namespace labNetPractica2.Exceptions
     public class CustomExceptions : Exception
     {
         public CustomExceptions() : base ("Solo Chuck Norris puede dividir por cero!") { }
-
-        public static void ThrowCustomException()
-        {
-            throw new CustomExceptions();
-        }
+    
     }
 }

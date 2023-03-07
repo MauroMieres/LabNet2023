@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace labNetPractica2
 {
-    public class Logica
+    public class Logic
     {
         public static decimal DividirDosDecimales(decimal dividendo, decimal divisor, Action<string> delegado)
         {
@@ -19,10 +19,11 @@ namespace labNetPractica2
             {
                 try
                 {
-                    CustomExceptions.ThrowCustomException();
+                    ThrowCustomException();
                 }
                 catch(Exception ex)
                 {
+                    if(delegado != null)
                     delegado.Invoke(ex.Message);
                 }
                 return 0;
@@ -30,8 +31,24 @@ namespace labNetPractica2
             finally
             {
                 if(divisor != 0)
-                    delegado.Invoke($"Resultado: {dividendo}/{divisor}: {dividendo / divisor}");
+                {
+                    if (delegado != null)
+                        delegado.Invoke($"Resultado: {dividendo}/{divisor}: {dividendo / divisor}");
+                }
+                    
             }
         }
+
+        public static void ThrowCustomException()
+        {
+            throw new CustomExceptions();
+        }
+
+        public static void ThrowException()
+        {
+            throw new Exception();
+        }
     }
+
+
 }

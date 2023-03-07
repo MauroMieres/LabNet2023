@@ -16,12 +16,14 @@ namespace labNetPractica2.ExtensionMethods
             }
             catch (DivideByZeroException)
             {
+                if(delegado!=null)
                 delegado.Invoke("No se puede dividir por cero!");
                 return 0;
             }
             finally
             {
-                delegado.Invoke("Fin de la operacion.");
+                if (delegado != null)
+                    delegado.Invoke("Fin de la operacion.");
             }
         }
     }
