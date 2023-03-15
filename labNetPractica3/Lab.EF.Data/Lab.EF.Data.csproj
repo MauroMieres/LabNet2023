@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{40477C4A-4444-4D69-9DE5-04AD18F5B1E1}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Lab.EF.UI</RootNamespace>
-    <AssemblyName>Lab.EF.UI</AssemblyName>
+    <ProjectGuid>{A6AB527E-0E19-4B8A-AED8-B5E7675B7F5A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lab.EF.Data</RootNamespace>
+    <AssemblyName>Lab.EF.Data</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -42,6 +40,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="NorthWindContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -59,12 +59,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lab.EF.Entities\Lab.EF.Entities.csproj">
-      <Project>{2dae6337-0762-4f1f-baa0-ccf765b78600}</Project>
+      <Project>{2DAE6337-0762-4F1F-BAA0-CCF765B78600}</Project>
       <Name>Lab.EF.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Lab.EF.Logic\Lab.EF.Logic.csproj">
-      <Project>{c0a1d6a5-8d14-4f68-99a0-fdb1382c1045}</Project>
-      <Name>Lab.EF.Logic</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
