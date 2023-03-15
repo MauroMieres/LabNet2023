@@ -10,10 +10,10 @@ namespace Lab.EF.Logic
 {
     public interface IABMLogic<T>
     {
-        List<T> GetAll();
-        int GetId(T item);
-        void Insert(T item);
-        void Update(T item);
-        void Delete(T item);      
+        IEnumerable<T> GetAll();
+        T GetById(int id);
+        void Insert(T entity);
+        void Update(T entity);
+        void Delete(T entity);      
     }
 }

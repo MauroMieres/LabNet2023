@@ -12,27 +12,30 @@ namespace Lab.EF.UI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("categories");
-
-            IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
-            
-            var categories = categoriesLogic.GetAll();
-
-            foreach (var category in categories)
+            string answer = "s";
+            do
             {
-                Console.WriteLine(  category.CategoryName);
-            }
+                switch (VistaConsola.ShowMainMenu())
+                {
+                    case 1://modificar
+                        VistaConsola.UpdateMenu();
+                        break;
 
-            Console.WriteLine("suppliers");
+                    case 2://borrar
+                        break;
 
-            IABMLogic<Suppliers> suppliersLogic = new SuppliersLogic();
+                    case 3://agregar
+                        break; ;
 
-            var suppliers = suppliersLogic.GetAll();
+                    case 10://salir
+                        answer = "n";
+                        Console.WriteLine("Gracias por usar el programa!");
+                        break;
 
-            foreach (var supply in suppliers)
-            {
-                Console.WriteLine(supply.CompanyName);
-            }
+                    default:
+                        return;
+                }
+            } while (answer == "s");
 
             Console.ReadLine();
         }
