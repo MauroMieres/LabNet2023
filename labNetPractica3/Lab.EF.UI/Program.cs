@@ -12,26 +12,26 @@ namespace Lab.EF.UI
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(  "products");
+            Console.WriteLine("categories");
 
-            ProductLogic productLogic = new ProductLogic();
+            CategoriesLogic categoriesLogic = new CategoriesLogic();
 
-            var products = productLogic.GetAll();
+            var categories = categoriesLogic.GetAll();
 
-            foreach( var product in products )
+            foreach (var category in categories)
             {
-                Console.WriteLine(  product.ProductName);
+                Console.WriteLine(  category.CategoryName);
             }
 
-            RegionLogic regionLogic = new RegionLogic();
+            Console.WriteLine("suppliers");
 
-            var regions = regionLogic.GetAll();
+            SuppliersLogic    supplierslogic = new SuppliersLogic();
 
-            Console.WriteLine("regions");
+            var suppliers = supplierslogic.GetAll();
 
-            foreach ( var region in regions )
+            foreach (var supply in suppliers)
             {
-                Console.WriteLine(  region.RegionDescription);
+                Console.WriteLine(supply.CompanyName);
             }
 
             Console.ReadLine();
