@@ -14,8 +14,8 @@ namespace Lab.EF.UI
         {
             Console.WriteLine("categories");
 
-            CategoriesLogic categoriesLogic = new CategoriesLogic();
-
+            IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
+            
             var categories = categoriesLogic.GetAll();
 
             foreach (var category in categories)
@@ -25,9 +25,9 @@ namespace Lab.EF.UI
 
             Console.WriteLine("suppliers");
 
-            SuppliersLogic    supplierslogic = new SuppliersLogic();
+            IABMLogic<Suppliers> suppliersLogic = new SuppliersLogic();
 
-            var suppliers = supplierslogic.GetAll();
+            var suppliers = suppliersLogic.GetAll();
 
             foreach (var supply in suppliers)
             {

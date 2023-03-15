@@ -8,18 +8,32 @@ using Lab.EF.Data;
 
 namespace Lab.EF.Logic
 {
-    public class ProductLogic
+    public class ProductLogic : BaseLogic, IABMLogic<Products>
     {
-        private NorthWindContext _northWindContext;
-
-        public ProductLogic()
+        
+        public void Delete(Products item)
         {
-            _northWindContext = new NorthWindContext();
+            throw new NotImplementedException();
         }
 
         public List<Products> GetAll()
         {
             return _northWindContext.Products.ToList();
+        }
+
+        public int GetId(Products item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Products item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Products item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

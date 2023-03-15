@@ -8,18 +8,32 @@ using System.Threading.Tasks;
 
 namespace Lab.EF.Logic
 {
-    public class RegionLogic
+    public class RegionLogic : BaseLogic, IABMLogic<Region>
     {
-        private NorthWindContext _northWindContext;
-
-        public RegionLogic()
+     
+        public void Delete(Region item)
         {
-            _northWindContext = new NorthWindContext();
+            throw new NotImplementedException();
         }
 
         public List<Region> GetAll()
         {
             return _northWindContext.Region.ToList();
+        }
+
+        public int GetId(Region item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(Region item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Region item)
+        {
+            throw new NotImplementedException();
         }
     }
 }
