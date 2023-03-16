@@ -41,5 +41,31 @@ namespace Lab.EF.UI
             }
         }
 
+        public static bool ValidateStringLength(string input, int maxLength)
+        {
+            if (input.Length <= maxLength)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool ValidateYesNoInput(string input)
+        {
+            if (input.ToUpper() == "S" || input.ToUpper() =="N")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
     }
 }

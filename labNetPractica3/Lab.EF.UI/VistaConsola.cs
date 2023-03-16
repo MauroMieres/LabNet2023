@@ -149,7 +149,7 @@ namespace Lab.EF.UI
             foreach (var category in categories)
             {
                 Console.WriteLine($"ID: {category.CategoryID} - {category.CategoryName}");
-            } 
+            }
             int idExistente;
             var entity = new Categories();
             while (true)
@@ -172,28 +172,24 @@ namespace Lab.EF.UI
                 Console.WriteLine("ERROR. Ingrese un ID existente en el sistema.");
             }
 
+            string confirma;
             while (true)
             {
                 Console.WriteLine($"Confirma que quiere borrar el registro? ");
                 Console.WriteLine("S/N");
-                string respuesta = Console.ReadLine().ToUpper().Trim();
-                if (respuesta == "S")
-                    break;
+                confirma = Console.ReadLine();
+                if (!ValidationsUI.ValidateYesNoInput(confirma))
+                    Console.WriteLine("Ingrese S/N.");
                 else
                 {
-                    Console.WriteLine("Cancela el borrado del registro?");
-                    Console.WriteLine("S/N");
-                    try
-                    {
-                        string cancelaRegistro = Console.ReadLine();
-                        if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
-                            return;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                    break;
                 }
+            }
+
+            if (confirma.ToUpper() == "N")
+            {
+                Console.WriteLine( "Cancelado el borrado de registro");
+                return;
             }
 
             try
@@ -209,10 +205,10 @@ namespace Lab.EF.UI
 
         public static void DeleteSupplier()
         {
-            Console.WriteLine("*** Borrar un registro de la tabla suplliers ***");
+            Console.WriteLine("*** Borrar un registro de la tabla supplier ***");
 
-            IABMLogic<Suppliers> suppliersLogic = new SuppliersLogic();
-            var suppliers = suppliersLogic.GetAll();
+            IABMLogic<Suppliers> supplierLogic = new SuppliersLogic();
+            var suppliers = supplierLogic.GetAll();
             foreach (var supplier in suppliers)
             {
                 Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.CompanyName}");
@@ -227,7 +223,7 @@ namespace Lab.EF.UI
 
                 if (int.TryParse(input, out idExistente))
                 {
-                    entity = suppliersLogic.GetById(idExistente);
+                    entity = supplierLogic.GetById(idExistente);
 
                     if (entity != null)
                     {
@@ -239,33 +235,30 @@ namespace Lab.EF.UI
                 Console.WriteLine("ERROR. Ingrese un ID existente en el sistema.");
             }
 
+
+            string respuesta;
             while (true)
             {
                 Console.WriteLine($"Confirma que quiere borrar el registro? ");
                 Console.WriteLine("S/N");
-                string respuesta = Console.ReadLine().ToUpper().Trim();
-                if (respuesta == "S")
-                    break;
+                respuesta = Console.ReadLine();
+                if (!ValidationsUI.ValidateYesNoInput(respuesta))
+                    Console.WriteLine("Ingrese S/N.");
                 else
                 {
-                    Console.WriteLine("Cancela el borrado del registro?");
-                    Console.WriteLine("S/N");
-                    try
-                    {
-                        string cancelaRegistro = Console.ReadLine();
-                        if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
-                            return;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
+                    break;
                 }
+            }
+
+            if (respuesta.ToUpper() == "N")
+            {
+                Console.WriteLine("Borrado cancelado.");
+                return;
             }
 
             try
             {
-                suppliersLogic.Delete(entity);
+                supplierLogic.Delete(entity);
                 Console.WriteLine("Borrado del registro exitoso!");
             }
             catch (Exception ex)
@@ -290,6 +283,8 @@ namespace Lab.EF.UI
             int id;
             Categories entity = new Categories();
 
+
+
             while (true)
             {
                 Console.WriteLine("Ingrese ID del producto que desea modificar:");
@@ -310,18 +305,55 @@ namespace Lab.EF.UI
 
             Console.WriteLine($"ID ingresado: {id}");
             Console.WriteLine($"Objeto que quieres modificar:\nID: {entity.CategoryID} - {entity.CategoryName}");
-            Console.WriteLine("Ingrese nuevo nombre para la categoria");
 
-            string categoryUpdateName = Console.ReadLine();
+            string updateCategory;
+            while (true)
+            {
+                Console.Write("Ingrese nombre del category:");
+                updateCategory = Console.ReadLine();
+                if (ValidationsUI.ValidateLettersAndSpaces(updateCategory) && ValidationsUI.ValidateStringLength(updateCategory, 15))
+                    break;
+                Console.WriteLine("Ingrese un nombre valido! Solo caracteres y espacios! No numeros. Maximo 15 caracteres.");
+            }
 
-            entity.CategoryName = categoryUpdateName;
+            entity.CategoryName = updateCategory;
 
-            categoriesLogic.Update(entity);
+            string respuesta;
+            while (true)
+            {
+                Console.WriteLine($"Confirma que quiere modificar el registro? ");
+                Console.WriteLine("S/N");
+                respuesta = Console.ReadLine();
+                if (!ValidationsUI.ValidateYesNoInput(respuesta))
+                    Console.WriteLine("Ingrese S/N.");
+                else
+                {
+                    break;
+                }
+            }
+
+            if (respuesta.ToUpper() == "N")
+            {
+                Console.WriteLine("Modificacion cancelada.");
+                return;
+            }
+              
+            try
+            {
+                categoriesLogic.Update(entity);
+                Console.WriteLine("Modificacion exitosa!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
             foreach (var category in categories)
             {
                 Console.WriteLine($"ID: {category.CategoryID} - {category.CategoryName}");
             }
+
+            Console.WriteLine("**************************************************");
         }
 
         public static void InsertCategoryUI()
@@ -462,15 +494,15 @@ namespace Lab.EF.UI
 
         public static void UpdateSuppliesUI()
         {
-            Console.WriteLine($"Modificar suppliers:");
+            Console.WriteLine($"*** Modificar suppliers ***");
 
             IABMLogic<Suppliers> suppliersLogic = new SuppliersLogic();
 
-            var suppliersList = suppliersLogic.GetAll();
+            var suppliers = suppliersLogic.GetAll();
 
-            foreach (var supplier in suppliersList)
+            foreach (var supplier in suppliers)
             {
-                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.ContactName}");
+                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.CompanyName}");
             }
 
             int id;
@@ -495,19 +527,55 @@ namespace Lab.EF.UI
             }
 
             Console.WriteLine($"ID ingresado: {id}");
-            Console.WriteLine($"Objeto que quieres modificar:\nID: {entity.SupplierID} - {entity.ContactName}");
-            Console.WriteLine("Ingrese nuevo nombre para el supplier");
+            Console.WriteLine($"Objeto que quieres modificar:\nID: {entity.SupplierID} - {entity.CompanyName}");
 
-            string supplierUpdateName = Console.ReadLine();
-
-            entity.ContactName = supplierUpdateName;
-
-            suppliersLogic.Update(entity);
-
-            foreach (var supplier in suppliersList)
+            string updateCategory;
+            while (true)
             {
-                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.ContactName}");
+                Console.Write("Ingrese nombre del supplier:");
+                updateCategory = Console.ReadLine();
+                if (ValidationsUI.ValidateLettersAndSpaces(updateCategory) && ValidationsUI.ValidateStringLength(updateCategory, 40))
+                    break;
+                Console.WriteLine("Ingrese un nombre valido! Solo caracteres y espacios! No numeros. Maximo 40 caracteres.");
             }
+
+            entity.CompanyName = updateCategory;
+
+            string respuesta;
+            while (true)
+            {
+                Console.WriteLine($"Confirma que quiere modificar el registro? ");
+                Console.WriteLine("S/N");
+                respuesta = Console.ReadLine();
+                if (!ValidationsUI.ValidateYesNoInput(respuesta))
+                    Console.WriteLine("Ingrese S/N.");
+                else
+                {
+                    break;
+                }
+            }
+
+            if (respuesta.ToUpper() == "N")
+            {
+                Console.WriteLine("Modificacion cancelada.");
+                return;
+            }
+
+            try
+            {
+                suppliersLogic.Update(entity);
+                Console.WriteLine("Modificacion exitosa!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            foreach (var supplier in suppliers)
+            {
+                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.CompanyName}");
+            }
+            Console.WriteLine("**************************************************");
         }
 
     }
