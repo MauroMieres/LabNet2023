@@ -42,7 +42,7 @@ namespace Lab.EF.UI
                 Console.WriteLine("2. Supplies");
                 Console.WriteLine("10. Volver al menu principal.");
                 var inputOption = Console.ReadLine();
-               
+
                 if (int.TryParse(inputOption, out option))
                 {
                     if (option == 1 || option == 2 || option == 10)
@@ -65,44 +65,44 @@ namespace Lab.EF.UI
                     return;
                 default:
                     return;
-            }     
+            }
         }
 
-        //public static void DeleteMenu()
-        //{
-        //    int option;
-        //    while (true)
-        //    {
-        //        Console.WriteLine("Elige una tabla para modificar");
-        //        Console.WriteLine("1. Categories");
-        //        Console.WriteLine("2. Supplies");
-        //        Console.WriteLine("10. Volver al menu principal.");
-        //        var inputOption = Console.ReadLine();
+        public static void DeleteMenu()
+        {
+            int option;
+            while (true)
+            {
+                Console.WriteLine("Elige la tabla de donde desea borrar un registro:");
+                Console.WriteLine("1. Categories");
+                Console.WriteLine("2. Supplies");
+                Console.WriteLine("10. Volver al menu principal.");
+                var inputOption = Console.ReadLine();
 
-        //        if (int.TryParse(inputOption, out option))
-        //        {
-        //            if (option == 1 || option == 2 || option == 10)
-        //                break;
-        //        }
-        //        Console.WriteLine("ERROR. Ingrese una opcion valida.");
-        //    }
+                if (int.TryParse(inputOption, out option))
+                {
+                    if (option == 1 || option == 2 || option == 10)
+                        break;
+                }
+                Console.WriteLine("ERROR. Ingrese una opcion valida.");
+            }
 
-        //    switch (option)
-        //    {
-        //        case 1://logica category
-        //            UpdateCategoriesUI();
-        //            break;
+            switch (option)
+            {
+                case 1://logica borrar category
+                    DeleteCategory();
+                    break;
 
-        //        case 2://logica suppliersList
-        //            UpdateSuppliesUI();
-        //            break;
+                case 2://logica borrar supplier
+                    DeleteSupplier();
+                    break;
 
-        //        case 10:
-        //            return;
-        //        default:
-        //            return;
-        //    }
-        //}
+                case 10:
+                    return;
+                default:
+                    return;
+            }
+        }
 
         public static void InsertMenu()
         {
@@ -137,6 +137,140 @@ namespace Lab.EF.UI
                     return;
                 default:
                     return;
+            }
+        }
+
+        public static void DeleteCategory()
+        {
+            Console.WriteLine("*** Borrar un registro de la tabla categories ***");
+
+            IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
+            var categories = categoriesLogic.GetAll();
+            foreach (var category in categories)
+            {
+                Console.WriteLine($"ID: {category.CategoryID} - {category.CategoryName}");
+            } 
+            int idExistente;
+            var entity = new Categories();
+            while (true)
+            {
+                Console.WriteLine("Ingrese ID del producto que desea borrar:");
+                string input = Console.ReadLine();
+
+
+                if (int.TryParse(input, out idExistente))
+                {
+                    entity = categoriesLogic.GetById(idExistente);
+
+                    if (entity != null)
+                    {
+                        Console.WriteLine("** ID encontrado en el sistema ***");
+                        Console.WriteLine($"Registro encontrado: \n {entity.CategoryID} - {entity.CategoryName}");
+                        break;
+                    }
+                }
+                Console.WriteLine("ERROR. Ingrese un ID existente en el sistema.");
+            }
+
+            while (true)
+            {
+                Console.WriteLine($"Confirma que quiere borrar el registro? ");
+                Console.WriteLine("S/N");
+                string respuesta = Console.ReadLine().ToUpper().Trim();
+                if (respuesta == "S")
+                    break;
+                else
+                {
+                    Console.WriteLine("Cancela el borrado del registro?");
+                    Console.WriteLine("S/N");
+                    try
+                    {
+                        string cancelaRegistro = Console.ReadLine();
+                        if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
+                            return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            try
+            {
+                categoriesLogic.Delete(entity);
+                Console.WriteLine("Borrado del registro exitoso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void DeleteSupplier()
+        {
+            Console.WriteLine("*** Borrar un registro de la tabla suplliers ***");
+
+            IABMLogic<Suppliers> suppliersLogic = new SuppliersLogic();
+            var suppliers = suppliersLogic.GetAll();
+            foreach (var supplier in suppliers)
+            {
+                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.CompanyName}");
+            }
+            int idExistente;
+            var entity = new Suppliers();
+            while (true)
+            {
+                Console.WriteLine("Ingrese ID del supplier que desea borrar:");
+                string input = Console.ReadLine();
+
+
+                if (int.TryParse(input, out idExistente))
+                {
+                    entity = suppliersLogic.GetById(idExistente);
+
+                    if (entity != null)
+                    {
+                        Console.WriteLine("** ID encontrado en el sistema ***");
+                        Console.WriteLine($"Registro encontrado: \n {entity.SupplierID} - {entity.CompanyName}");
+                        break;
+                    }
+                }
+                Console.WriteLine("ERROR. Ingrese un ID existente en el sistema.");
+            }
+
+            while (true)
+            {
+                Console.WriteLine($"Confirma que quiere borrar el registro? ");
+                Console.WriteLine("S/N");
+                string respuesta = Console.ReadLine().ToUpper().Trim();
+                if (respuesta == "S")
+                    break;
+                else
+                {
+                    Console.WriteLine("Cancela el borrado del registro?");
+                    Console.WriteLine("S/N");
+                    try
+                    {
+                        string cancelaRegistro = Console.ReadLine();
+                        if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
+                            return;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+
+            try
+            {
+                suppliersLogic.Delete(entity);
+                Console.WriteLine("Borrado del registro exitoso!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
@@ -226,7 +360,8 @@ namespace Lab.EF.UI
                             string cancelaRegistro = Console.ReadLine();
                             if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
                                 return;
-                        }catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
                         }
@@ -237,7 +372,8 @@ namespace Lab.EF.UI
                 {
                     categoriesLogic.Insert(newCategory);
                     Console.WriteLine("Categoria agregada exitosamente!");
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }

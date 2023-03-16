@@ -22,6 +22,7 @@ namespace Lab.EF.UI
                         break;
 
                     case 2://borrar
+                        VistaConsola.DeleteMenu();
                         break;
 
                     case 3://agregar
