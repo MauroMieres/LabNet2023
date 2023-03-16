@@ -17,5 +17,29 @@ namespace Lab.EF.UI
             return false;
         }
 
+        public static bool ValidateLettersAndSpaces(string input)
+        {
+            foreach (char c in input)
+            {
+                if (!Char.IsLetter(c) && !Char.IsWhiteSpace(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public static bool ValidateYesOrNo(string input)
+        {
+            if (input.ToUpper() == "S" || input.ToLower() == "N")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }

@@ -25,7 +25,8 @@ namespace Lab.EF.UI
                         break;
 
                     case 3://agregar
-                        break; ;
+                        VistaConsola.InsertMenu();
+                        break;
 
                     case 10://salir
                         answer = "n";

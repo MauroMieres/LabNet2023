@@ -53,7 +53,7 @@ namespace Lab.EF.UI
 
             switch (option)
             {
-                case 1://logica suppliersList
+                case 1://logica category
                     UpdateCategoriesUI();
                     break;
 
@@ -68,9 +68,81 @@ namespace Lab.EF.UI
             }     
         }
 
+        //public static void DeleteMenu()
+        //{
+        //    int option;
+        //    while (true)
+        //    {
+        //        Console.WriteLine("Elige una tabla para modificar");
+        //        Console.WriteLine("1. Categories");
+        //        Console.WriteLine("2. Supplies");
+        //        Console.WriteLine("10. Volver al menu principal.");
+        //        var inputOption = Console.ReadLine();
+
+        //        if (int.TryParse(inputOption, out option))
+        //        {
+        //            if (option == 1 || option == 2 || option == 10)
+        //                break;
+        //        }
+        //        Console.WriteLine("ERROR. Ingrese una opcion valida.");
+        //    }
+
+        //    switch (option)
+        //    {
+        //        case 1://logica category
+        //            UpdateCategoriesUI();
+        //            break;
+
+        //        case 2://logica suppliersList
+        //            UpdateSuppliesUI();
+        //            break;
+
+        //        case 10:
+        //            return;
+        //        default:
+        //            return;
+        //    }
+        //}
+
+        public static void InsertMenu()
+        {
+            int option;
+            while (true)
+            {
+                Console.WriteLine("Elige una tabla para agregar un nuevo registro.");
+                Console.WriteLine("1. Categories");
+                Console.WriteLine("2. Supplies");
+                Console.WriteLine("10. Volver al menu principal.");
+                var inputOption = Console.ReadLine();
+
+                if (int.TryParse(inputOption, out option))
+                {
+                    if (option == 1 || option == 2 || option == 10)
+                        break;
+                }
+                Console.WriteLine("ERROR. Ingrese una opcion valida.");
+            }
+
+            switch (option)
+            {
+                case 1://logica category
+                    InsertCategoryUI();
+                    break;
+
+                case 2://logica suppliersList
+                    InsertSupplierUI();
+                    break;
+
+                case 10:
+                    return;
+                default:
+                    return;
+            }
+        }
+
         public static void UpdateCategoriesUI()
         {
-            Console.WriteLine($"Modificar categorias:");
+            Console.WriteLine($"*** Modificar categorias ***");
 
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
 
@@ -118,6 +190,140 @@ namespace Lab.EF.UI
             }
         }
 
+        public static void InsertCategoryUI()
+        {
+            Console.WriteLine("*** Agregar un Category ***");
+
+            string nombreCategory;
+            while (true)
+            {
+                Console.Write("Ingrese nombre del category:");
+                nombreCategory = Console.ReadLine();
+                if (ValidationsUI.ValidateLettersAndSpaces(nombreCategory))
+                    break;
+                Console.WriteLine("Ingrese un nombre valido! Solo caracteres y espacios!");
+            }
+
+            CategoriesLogic categoriesLogic = new CategoriesLogic();
+            try
+            {
+                var newCategory = new Categories();
+                newCategory.CategoryName = nombreCategory;
+
+                while (true)
+                {
+                    Console.WriteLine($"Confirma que quiere agregar el registro nuevo? \n Nueva categoria: {nombreCategory}.");
+                    Console.WriteLine("S/N");
+                    string respuesta = Console.ReadLine().ToUpper().Trim();
+                    if (respuesta == "S")
+                        break;
+                    else
+                    {
+                        Console.WriteLine("Cancela el ingreso del nuevo registro?");
+                        Console.WriteLine("S/N");
+                        try
+                        {
+                            string cancelaRegistro = Console.ReadLine();
+                            if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
+                                return;
+                        }catch(Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
+
+                try
+                {
+                    categoriesLogic.Insert(newCategory);
+                    Console.WriteLine("Categoria agregada exitosamente!");
+                }catch(Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                var categories = categoriesLogic.GetAll();
+
+                Console.WriteLine("*** Lista de categories ***");
+                foreach (var category in categories)
+                {
+                    Console.WriteLine($"ID: {category.CategoryID} - {category.CategoryName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void InsertSupplierUI()
+        {
+            Console.WriteLine("*** Agregar un supplier ***");
+
+            string nombreSupplier;
+            while (true)
+            {
+                Console.Write("Ingrese nombre del nuevo supplier:");
+                nombreSupplier = Console.ReadLine();
+                if (ValidationsUI.ValidateLettersAndSpaces(nombreSupplier))
+                    break;
+                Console.WriteLine("Ingrese un nombre valido! Solo caracteres y espacios!");
+            }
+
+            SuppliersLogic categoriesLogic = new SuppliersLogic();
+            try
+            {
+                var newCategory = new Suppliers();
+                newCategory.CompanyName = nombreSupplier;
+
+                while (true)
+                {
+                    Console.WriteLine($"Confirma que quiere agregar el registro nuevo? \n Nuevo supplier: {nombreSupplier}.");
+                    Console.WriteLine("S/N");
+                    string respuesta = Console.ReadLine().ToUpper().Trim();
+                    if (respuesta == "S")
+                        break;
+                    else
+                    {
+                        Console.WriteLine("Cancela el ingreso del nuevo registro?");
+                        Console.WriteLine("S/N");
+                        try
+                        {
+                            string cancelaRegistro = Console.ReadLine();
+                            if (ValidationsUI.ValidateYesOrNo(cancelaRegistro))
+                                return;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
+
+                try
+                {
+                    categoriesLogic.Insert(newCategory);
+                    Console.WriteLine("Supplier agregado exitosamente!");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                var categories = categoriesLogic.GetAll();
+
+                Console.WriteLine("*** Lista de suppliers ***");
+                foreach (var category in categories)
+                {
+                    Console.WriteLine($"ID: {category.SupplierID} - {category.CompanyName}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public static void UpdateSuppliesUI()
         {
             Console.WriteLine($"Modificar suppliers:");
@@ -156,15 +362,15 @@ namespace Lab.EF.UI
             Console.WriteLine($"Objeto que quieres modificar:\nID: {entity.SupplierID} - {entity.ContactName}");
             Console.WriteLine("Ingrese nuevo nombre para el supplier");
 
-            string categoryUpdateName = Console.ReadLine();
+            string supplierUpdateName = Console.ReadLine();
 
-            entity.ContactName = categoryUpdateName;
+            entity.ContactName = supplierUpdateName;
 
             suppliersLogic.Update(entity);
 
-            foreach (var category in suppliersList)
+            foreach (var supplier in suppliersList)
             {
-                Console.WriteLine($"ID: {category.SupplierID} - {category.ContactName}");
+                Console.WriteLine($"ID: {supplier.SupplierID} - {supplier.ContactName}");
             }
         }
 
