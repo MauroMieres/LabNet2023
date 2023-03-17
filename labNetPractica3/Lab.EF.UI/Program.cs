@@ -12,36 +12,27 @@ namespace Lab.EF.UI
     {
         static void Main(string[] args)
         {
-            //esto solo tiene que aparecer en el branch4
-
-            string answer = "s";
-            do
-            {
-                switch (VistaConsola.ShowMainMenu())
-                {
-                    case 1://modificar
-                        VistaConsola.UpdateMenu();
-                        break;
-
-                    case 2://borrar
-                        VistaConsola.DeleteMenu();
-                        break;
-
-                    case 3://agregar
-                        VistaConsola.InsertMenu();
-                        break;
-
-                    case 10://salir
-                        answer = "n";
-                        Console.WriteLine("Gracias por usar el programa!");
-                        break;
-
-                    default:
-                        return;
-                }
-            } while (answer == "s");
-
+            VistaQuerys.Query1();
+            PressKey();
+            VistaQuerys.Query2();
+            PressKey();
+            VistaQuerys.Query3();
+            PressKey();
+            VistaQuerys.Query4();
+            PressKey();
+            VistaQuerys.Query5();
+            PressKey();
+            VistaQuerys.Query6();
+            PressKey();
+            VistaQuerys.Query7();
             Console.ReadLine();
+        }
+
+        public static void PressKey()
+        {
+            Console.WriteLine("Presione una tecla para continuar con la siguiente query.");
+            Console.ReadKey();
+            Console.WriteLine("*********************************************************");
         }
     }
 }
