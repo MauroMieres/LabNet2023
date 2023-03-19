@@ -1,75 +1,61 @@
-const maxIntentos = 10;
-let numeroGenerado;
-let intentos;
-let puntaje;
-let puntajeAlto = 0;
-
-function generarNumero() {
-    numeroGenerado = Math.floor(Math.random() * 20) + 1;
-    intentos = maxIntentos;
-    puntaje = 100;
-    actualizarPantalla();
-}
+let puntaje = 100;
+let puntajeMaximo = 0;
+let numeroAleatorio = Math.floor(Math.random() * 20) + 1;
+let intentos = [];
 
 function adivinar() {
-    const inputNumero = document.getElementById("numero");
-    const mensaje = document.getElementById("mensaje");
-    const pista = document.getElementById("pista");
+    let numero = parseInt(document.getElementById("numero").value);
 
-    const numeroUsuario = parseInt(inputNumero.value);
-
-    if (isNaN(numeroUsuario) || numeroUsuario < 1 || numeroUsuario > 20) {
-        mensaje.innerHTML = "Por favor ingresa un numero valido entre 1 y 20.";
-        mensaje.style.color = "black";
+    if (isNaN(numero) || numero < 1 || numero > 20) {
+        document.getElementById("mensaje").innerHTML = "Por favor ingresa un número valido entre 1 y 20.";
         return;
     }
 
-    if (intentos > 0) {
-        if (numeroUsuario === numeroGenerado) {
-            mensaje.innerHTML = "Adivinaste!";
-            mensaje.style.color = "green";
-            inputNumero.disabled = true;
-        } else {
-            intentos--;
-            puntaje -= 10;
-            actualizarPantalla();
-            if (intentos === 0) {
-                mensaje.innerHTML = `Se acabaron los intentos! El numero era ${numeroGenerado}.`;
-                mensaje.style.color = "red";
-                inputNumero.disabled = true;
-            } else {
-                mensaje.innerHTML = `Intenta de nuevo. Te quedan ${intentos} intentos.`;
-                mensaje.style.color = "black";
-                if (numeroUsuario > numeroGenerado) {
-                    pista.innerHTML = "El numero es menor.";
-                } else {
-                    pista.innerHTML = "El numero es mayor.";
-                }
-            }
+    if (numero === numeroAleatorio) {
+        document.getElementById("mensaje").innerHTML = "Felicitaciones! Adivinaste el numero.";
+        document.body.style.backgroundColor = "#4CAF50";
+        document.getElementById("numero").disabled = true;
+        document.getElementsByTagName("button")[0].disabled = true;
+
+        if (puntaje > puntajeMaximo) {
+            puntajeMaximo = puntaje;
+            document.getElementById("puntaje-alto").innerHTML = puntajeMaximo;
         }
+
+    } else {
+        puntaje -= 10;
+
+        if (puntaje <= 0) {
+            document.getElementById("mensaje").innerHTML = "Te has quedado sin intentos.";
+            document.body.style.backgroundColor = "#ff0000";
+            document.getElementById("numero").disabled = true;
+            document.getElementsByTagName("button")[0].disabled = true;
+            puntaje = 0;
+        } else {
+            let pista = (numero > numeroAleatorio) ? "El numero es menor." : "El numero es mayor.";
+            document.getElementById("mensaje").innerHTML = "Intenta de nuevo. " + pista;
+        }
+
+        document.getElementById("puntaje").innerHTML = puntaje;
     }
+
+    // Agregar número ingresado a la lista de intentos
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(numero));
+    document.getElementById("intentos").appendChild(li);
 }
 
 function reiniciar() {
-    const inputNumero = document.getElementById("numero");
-    inputNumero.disabled = false;
-    inputNumero.value = "";
-    const mensaje = document.getElementById("mensaje");
-    mensaje.innerHTML = "";
-    const pista = document.getElementById("pista");
-    pista.innerHTML = "";
-    generarNumero();
+    puntaje = 100;
+    document.getElementById("puntaje").innerHTML = puntaje;
+    numeroAleatorio = Math.floor(Math.random() * 20) + 1;
+    intentos = [];
+    document.getElementById("numero").disabled = false;
+    document.getElementsByTagName("button")[0].disabled = false;
+    document.getElementById("mensaje").innerHTML = "";
+    document.getElementById("intentos").innerHTML = "";
+    document.body.style.backgroundColor = "#eee";
 }
 
-function actualizarPantalla() {
-    const puntajeElemento = document.getElementById("puntaje");
-    const puntajeAltoElemento = document.getElementById("puntaje-alto");
 
-    puntajeElemento.innerHTML = puntaje;
-    if (puntaje > puntajeAlto) {
-        puntajeAlto = puntaje;
-        puntajeAltoElemento.innerHTML = puntajeAlto;
-    }
-}
 
-generarNumero();

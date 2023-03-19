@@ -52,3 +52,20 @@ p {
 #puntaje-alto {
     font-weight: bold;
 }
+
+#intentos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+    #intentos li {
+        display: inline-block;
+        margin: 5px;
+        padding: 5px;
+        background-color: #eee;
+        border-radius: 5px;
+    }
