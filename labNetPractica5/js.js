@@ -7,7 +7,7 @@ function adivinar() {
     let numero = parseInt(document.getElementById("numero").value);
 
     if (isNaN(numero) || numero < 1 || numero > 20) {
-        document.getElementById("mensaje").innerHTML = "Por favor ingresa un número valido entre 1 y 20.";
+        document.getElementById("mensaje").innerHTML = "Por favor ingresa un numero valido entre 1 y 20.";
         return;
     }
 
@@ -57,15 +57,39 @@ function reiniciar() {
     document.getElementById("mensaje").innerHTML = "";
     document.getElementById("intentos").innerHTML = "";
     document.body.style.backgroundColor = "#eee";
+    //console.log("El número generado es:", numeroAleatorio);
 }
 
 function lanzarConfetti() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
+    const duration = 3000;
+    const animationEnd = Date.now() + duration;
+    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+    function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    const interval = setInterval(function () {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+            return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);      
+        confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: 0.5 }
+        });
+        confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: 0.5 }
+        });
+    }, 250);
 }
+
 
 
 
