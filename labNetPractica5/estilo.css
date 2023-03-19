@@ -62,10 +62,12 @@ p {
     margin: 0;
 }
 
-    #intentos li {
-        display: inline-block;
-        margin: 5px;
-        padding: 5px;
-        background-color: #eee;
-        border-radius: 5px;
-    }
+#intentos li {
+    display: inline-block;
+    margin: 5px;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+
