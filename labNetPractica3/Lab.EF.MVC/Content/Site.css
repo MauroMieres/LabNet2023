@@ -18,3 +18,20 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.btn-confirmacion {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-cancelacion {
+    background-color: gray;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+

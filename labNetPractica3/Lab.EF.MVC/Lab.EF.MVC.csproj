@@ -187,6 +187,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Region\Index.cshtml" />
     <Content Include="Views\Region\Modificar.cshtml" />
+    <Content Include="Views\Region\Insert.cshtml" />
+    <Content Include="Views\Region\ConfirmarEliminacion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

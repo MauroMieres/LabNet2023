@@ -1,0 +1,10 @@
+﻿@model Lab.EF.MVC.Models.RegionViewModel
+
+<p>¿Está seguro de que desea eliminar la región @Model.Descripcion?</p>
+
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Sí" class="btn-confirmacion" />
+    @Html.ActionLink("No", "Index", null, new { @class = "btn-cancelacion" })
+}
+

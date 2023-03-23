@@ -19,12 +19,47 @@ namespace Lab.EF.MVC.Controllers
             return View(regiones);
         }
 
-        public ActionResult Eliminar(int id) 
+        public ActionResult ConfirmarEliminacion(int id)
         {
             IABMLogic<Region> regionesLogic = new RegionLogic();
             var entity = regionesLogic.GetById(id);
+
+            var viewModel = new RegionViewModel
+            {
+                Descripcion = entity.RegionDescription
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult ConfirmarEliminacion(RegionViewModel viewModel)
+        {
+            IABMLogic<Region> regionesLogic = new RegionLogic();
+            var entity = regionesLogic.GetById(viewModel.Id);
             regionesLogic.Delete(entity);
-            return null;
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Eliminar(int id)
+        {
+            IABMLogic<Region> regionesLogic = new RegionLogic();
+            var entity = regionesLogic.GetById(id);
+
+            // Mostrar mensaje de confirmación
+            bool confirmacion = false;
+            if (Request.HttpMethod == "POST")
+            {
+                confirmacion = Request.Form["confirmacion"] == "Si";
+            }
+            if (!confirmacion)
+            {
+                ViewBag.Id = id;
+                return View(entity);
+            }
+
+            regionesLogic.Delete(entity);
+            return RedirectToAction("Index");
         }
 
         public ActionResult Modificar(int id)
@@ -43,9 +78,27 @@ namespace Lab.EF.MVC.Controllers
         {
             //falta validacion
             IABMLogic<Region> regionesLogic = new RegionLogic();
-            regionesLogic.Update(new Region { RegionID= model.Id, RegionDescription=model.Descripcion});
-
+            regionesLogic.Update(new Region { RegionID = model.Id, RegionDescription = model.Descripcion });
             //manejo de errores
+            return RedirectToAction("Index");
+        }
+        public ActionResult Insert()
+        {
+            var regionViewModel = new RegionViewModel();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Insert(RegionViewModel regionViewModel)
+        {
+            var region = new Region
+            {
+                RegionDescription = regionViewModel.Descripcion
+            };
+
+            IABMLogic<Region> regionesLogic = new RegionLogic();
+            region.RegionID = regionesLogic.GetAll().Last().RegionID + 1;
+            regionesLogic.Insert(region);
             return RedirectToAction("Index");
         }
     }

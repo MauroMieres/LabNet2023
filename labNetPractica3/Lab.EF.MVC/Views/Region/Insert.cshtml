@@ -1,0 +1,16 @@
+﻿@model Lab.EF.MVC.Models.RegionViewModel
+@{
+    ViewBag.Title = "Insert";
+}
+
+<h2>Agregar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.LabelFor(m => m.Descripcion)
+    <br />
+    @Html.EditorFor(m => m.Descripcion)
+    <input type="submit" value="Agregar" />
+}
+
