@@ -1,0 +1,18 @@
+﻿@model Lab.EF.MVC.Models.RegionViewModel
+@{
+    ViewBag.Title = "Modificar";
+}
+
+<h2>Modificar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.Id)
+    @Html.LabelFor(m => m.Descripcion)
+    <br/>
+    @Html.EditorFor(m => m.Descripcion)
+    <input type="submit" value="Editar"/>
+}
+
+
+
