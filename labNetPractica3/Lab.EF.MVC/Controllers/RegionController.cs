@@ -41,27 +41,6 @@ namespace Lab.EF.MVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Eliminar(int id)
-        {
-            IABMLogic<Region> regionesLogic = new RegionLogic();
-            var entity = regionesLogic.GetById(id);
-
-            // Mostrar mensaje de confirmación
-            bool confirmacion = false;
-            if (Request.HttpMethod == "POST")
-            {
-                confirmacion = Request.Form["confirmacion"] == "Si";
-            }
-            if (!confirmacion)
-            {
-                ViewBag.Id = id;
-                return View(entity);
-            }
-
-            regionesLogic.Delete(entity);
-            return RedirectToAction("Index");
-        }
-
         public ActionResult Modificar(int id)
         {
             IABMLogic<Region> regionesLogic = new RegionLogic();
