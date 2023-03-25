@@ -126,11 +126,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriesViewModel.cs" />
     <Compile Include="Models\RegionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -189,6 +191,10 @@
     <Content Include="Views\Region\Modificar.cshtml" />
     <Content Include="Views\Region\Insert.cshtml" />
     <Content Include="Views\Region\ConfirmarEliminacion.cshtml" />
+    <Content Include="Views\Categories\ConfirmarEliminacion.cshtml" />
+    <Content Include="Views\Categories\Insert.cshtml" />
+    <Content Include="Views\Categories\Modificar.cshtml" />
+    <Content Include="Views\Categories\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

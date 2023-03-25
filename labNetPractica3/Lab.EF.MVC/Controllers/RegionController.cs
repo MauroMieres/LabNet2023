@@ -28,7 +28,6 @@ namespace Lab.EF.MVC.Controllers
             {
                 Descripcion = entity.RegionDescription
             };
-
             return View(viewModel);
         }
 
@@ -56,6 +55,8 @@ namespace Lab.EF.MVC.Controllers
         public ActionResult Modificar(RegionViewModel model)
         {
             //falta validacion
+            if (!ModelState.IsValid)
+                return View(model);
             IABMLogic<Region> regionesLogic = new RegionLogic();
             regionesLogic.Update(new Region { RegionID = model.Id, RegionDescription = model.Descripcion });
             //manejo de errores

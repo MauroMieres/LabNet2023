@@ -11,6 +11,7 @@
     @Html.LabelFor(m => m.Descripcion)
     <br/>
     @Html.EditorFor(m => m.Descripcion)
+    @Html.ValidationMessageFor(m => m.Descripcion,"")
     <input type="submit" value="Editar"/>
 }
 

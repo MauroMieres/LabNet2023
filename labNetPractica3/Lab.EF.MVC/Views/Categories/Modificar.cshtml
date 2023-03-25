@@ -1,0 +1,15 @@
+﻿@model Lab.EF.MVC.Models.CategoriesViewModel
+@{
+    ViewBag.Title = "Modificar";
+}
+
+<h2>Modificar</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(m => m.IdCategoria)
+    @Html.LabelFor(m => m.NombreCategoria)
+    <br />
+    @Html.EditorFor(m => m.NombreCategoria)
+    <input type="submit" value="Editar" />
+}

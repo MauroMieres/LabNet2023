@@ -1,4 +1,4 @@
-﻿@model List<Lab.EF.MVC.Models.RegionViewModel>
+﻿@model List<Lab.EF.MVC.Models.CategoriesViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -8,8 +8,8 @@
 <table class="table">
     <thead>
         <tr>
-            
-            <td>Description</td>
+           
+            <td>Categoria</td>
             <td>Eliminar</td>
             <td>Modificar</td>
         </tr>
@@ -19,9 +19,9 @@
         {
             <tr>
                 
-                <td> @item.Descripcion</td>
-                <td> @Html.ActionLink("Eliminar", "ConfirmarEliminacion", new { id = @item.Id })</td>
-                <td> @Html.ActionLink("Modificar", "Modificar", new { id = @item.Id })</td>
+                <td> @item.NombreCategoria</td>
+                <td> @Html.ActionLink("Eliminar", "ConfirmarEliminacion", new { id = @item.IdCategoria })</td>
+                <td> @Html.ActionLink("Modificar", "Modificar", new { id = @item.IdCategoria })</td>
             </tr>
         }
     </tbody>
