@@ -7,8 +7,7 @@
 
 <table class="table">
     <thead>
-        <tr>
-           
+        <tr>          
             <td>Categoria</td>
             <td>Eliminar</td>
             <td>Modificar</td>
@@ -17,11 +16,10 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                
-                <td> @item.NombreCategoria</td>
-                <td> @Html.ActionLink("Eliminar", "ConfirmarEliminacion", new { id = @item.IdCategoria })</td>
-                <td> @Html.ActionLink("Modificar", "Modificar", new { id = @item.IdCategoria })</td>
+            <tr>                
+                <td> @item.Name</td>
+                <td> @Html.ActionLink("Eliminar", "ConfirmarEliminacion", new { id = @item.Id })</td>
+                <td> @Html.ActionLink("Modificar", "Modificar", new { id = @item.Id })</td>
             </tr>
         }
     </tbody>

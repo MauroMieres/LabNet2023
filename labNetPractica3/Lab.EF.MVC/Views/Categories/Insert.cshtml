@@ -7,9 +7,9 @@
 
 @using (Html.BeginForm())
 {
-    @Html.HiddenFor(m => m.IdCategoria)
-    @Html.LabelFor(m => m.NombreCategoria)
+    @Html.HiddenFor(m => m.Id)
+    @Html.LabelFor(m => m.Name)
     <br />
-    @Html.EditorFor(m => m.NombreCategoria)
+    @Html.EditorFor(m => m.Name)
     <input type="submit" value="Agregar" />
 }

@@ -14,7 +14,7 @@ namespace Lab.EF.MVC.Controllers
         public ActionResult Index()
         {
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
-            var categories = categoriesLogic.GetAll().Select(c => new CategoriesViewModel { IdCategoria = c.CategoryID, NombreCategoria = c.CategoryName }).ToList();
+            var categories = categoriesLogic.GetAll().Select(c => new CategoriesViewModel { Id = c.CategoryID, Name = c.CategoryName }).ToList();
             return View(categories);
         }
 
@@ -25,8 +25,7 @@ namespace Lab.EF.MVC.Controllers
 
             var viewModel = new CategoriesViewModel
             {
-                NombreCategoria = entity.CategoryName,
-                IdCategoria = entity.CategoryID
+               Id = entity.CategoryID, Name = entity.CategoryName
             };
             return View(viewModel);
         }
@@ -35,21 +34,19 @@ namespace Lab.EF.MVC.Controllers
         public ActionResult ConfirmarEliminacion(CategoriesViewModel viewModel)
         {
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
-            var entity = categoriesLogic.GetById(viewModel.IdCategoria);
+            var entity = categoriesLogic.GetById(viewModel.Id);
             if (entity != null)
                 categoriesLogic.Delete(entity);
             return RedirectToAction("Index");
         }
-
-
 
         public ActionResult Modificar(int id)
         {
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
             CategoriesViewModel model = new CategoriesViewModel();
             var entity = categoriesLogic.GetById(id);
-            model.IdCategoria = entity.CategoryID;
-            model.NombreCategoria = entity.CategoryName;
+            model.Id = entity.CategoryID;
+            model.Name = entity.CategoryName;
             //categoriesLogic.Update(entity);
             return View(model);
         }
@@ -59,7 +56,7 @@ namespace Lab.EF.MVC.Controllers
         {
             //falta validacion
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
-            categoriesLogic.Update(new Categories { CategoryID = model.IdCategoria, CategoryName = model.NombreCategoria });
+            categoriesLogic.Update(new Categories { CategoryID = model.Id, CategoryName = model.Name });
             //manejo de errores
             return RedirectToAction("Index");
         }
@@ -75,7 +72,7 @@ namespace Lab.EF.MVC.Controllers
         {
             var category = new Categories
             {
-                CategoryName = categoryViewModel.NombreCategoria
+                CategoryName = categoryViewModel.Name
             };
 
             IABMLogic<Categories> categoriesLogic = new CategoriesLogic();
